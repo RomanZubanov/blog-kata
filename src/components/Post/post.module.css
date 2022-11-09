@@ -1,0 +1,105 @@
+.container {
+  padding: 16px;
+  margin-bottom: 25px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #fff;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.header {
+  display: flex;
+}
+
+.left-block {
+  width: 680px;
+}
+
+.right-block {
+  display: flex;
+  margin-left: auto;
+}
+
+.title-group {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  margin-bottom: 5px;
+}
+
+.title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  color: #1890ff;
+  margin: 0 15px 0 0;
+}
+
+.tag {
+  margin-bottom: 5px;
+}
+
+.tag span {
+  margin-right: 5px;
+  padding: 2px 5px;
+
+  color: rgba(0, 0, 0, 0.5);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+}
+
+.favoritesCount {
+  display: flex;
+  align-items: center;
+}
+
+.favoritesCount img {
+  margin-right: 5px;
+}
+
+.text {
+  height: 50px;
+  overflow: hidden;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.author-name {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  text-align: right;
+}
+
+.date {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: -5px;
+}
+
+.user-avatar {
+  width: 46px;
+  height: 46px;
+  margin-left: 12px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user-avatar img {
+  width: 100%;
+}
