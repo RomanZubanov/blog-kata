@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import classNames from 'classnames'
 import ReactMarkdown from 'react-markdown'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Popconfirm } from 'antd'
 
 import style from './post.module.css'
@@ -41,19 +40,16 @@ export default function Post({
           },
         })
         if (res.ok) {
-          console.log('res ok', res)
           navigate('/')
         }
-        console.log(res)
       } catch (err) {
-        console.log(err)
       }
     }
 
     if (deleting) {
       fetchDelete()
     }
-  }, [deleting])
+  }, [deleting, navigate, slug, token])
 
   const tags = tagList.map((tag) => <span key={key++}>{tag}</span>)
 
@@ -68,10 +64,10 @@ export default function Post({
         okText="Yes"
         cancelText="No"
       >
-        <button className={classNames(style.btn, style['btn-delete'])}>Delete</button>
+        <button type='button' className={classNames(style.btn, style['btn-delete'])}>Delete</button>
       </Popconfirm>
       <Link to={`/articles/${slug}/edit`}>
-        <button className={classNames(style.btn, style['btn-edit'])}>Edit</button>
+        <button type='button' className={classNames(style.btn, style['btn-edit'])}>Edit</button>
       </Link>
     </div>
   )

@@ -4,8 +4,6 @@ export default async function serviceArticle(dataForm) {
       article: dataForm.article,
     }) || null
 
-  console.log('data', data)
-
   const token = dataForm.token ? `Token ${dataForm.token}` : null
   const method = dataForm.method || 'POST'
 
@@ -23,7 +21,6 @@ export default async function serviceArticle(dataForm) {
         const response = await res.json()
         return response
       }
-      const response = await res.json()
       throw new Error(`${res.status}`)
     } catch (err) {
       return Promise.reject(err)
@@ -32,12 +29,10 @@ export default async function serviceArticle(dataForm) {
 
   try {
     const res = await fetch(`https://blog.kata.academy/api/${dataForm.resource}`)
-    console.log(res.ok, res.status, res.statusText)
     if (res.ok) {
       const response = await res.json()
       return response
     }
-    const response = await res.json()
     throw new Error(`${res.status}`)
   } catch (err) {
     return Promise.reject(err)
