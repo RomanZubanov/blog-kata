@@ -19,14 +19,11 @@ export default async function serviceArticle(dataForm) {
         },
         body: data,
       })
-      console.log(res.ok, res.status, res.statusText)
       if (res.ok) {
         const response = await res.json()
-        console.log(response)
         return response
       }
       const response = await res.json()
-      console.log(response)
       throw new Error(`${res.status}`)
     } catch (err) {
       return Promise.reject(err)
@@ -38,11 +35,9 @@ export default async function serviceArticle(dataForm) {
     console.log(res.ok, res.status, res.statusText)
     if (res.ok) {
       const response = await res.json()
-      console.log(response)
       return response
     }
     const response = await res.json()
-    console.log(response)
     throw new Error(`${res.status}`)
   } catch (err) {
     return Promise.reject(err)
