@@ -1,7 +1,11 @@
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import classNames from 'classnames'
 import ReactMarkdown from 'react-markdown'
 import { Link } from 'react-router-dom'
+import { Popconfirm } from 'antd'
 
 import style from './post.module.css'
 import heart from './heart.svg'
@@ -23,13 +27,49 @@ export default function Post({
   body,
   showBtn,
 }) {
+  const [deleting, setDeleting] = useState(false)
+  const navigate = useNavigate()
+  const token = useSelector((state) => state.user.user.token)
+
+  useEffect(() => {
+    async function fetchDelete() {
+      try {
+        const res = await fetch(`https://blog.kata.academy/api/articles/${slug}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        })
+        if (res.ok) {
+          console.log('res ok', res)
+          navigate('/')
+        }
+        console.log(res)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    if (deleting) {
+      fetchDelete()
+    }
+  }, [deleting])
+
   const tags = tagList.map((tag) => <span key={key++}>{tag}</span>)
 
   const heartSrc = favorited ? redHeart : heart
 
   const btn = (
     <div className={style['right-block-second-floor']}>
-      <button className={classNames(style.btn, style['btn-delete'])}>Delete</button>
+      <Popconfirm
+        placement="rightTop"
+        title="Are you sure to delete this article?"
+        onConfirm={() => setDeleting(true)}
+        okText="Yes"
+        cancelText="No"
+      >
+        <button className={classNames(style.btn, style['btn-delete'])}>Delete</button>
+      </Popconfirm>
       <Link to={`/articles/${slug}/edit`}>
         <button className={classNames(style.btn, style['btn-edit'])}>Edit</button>
       </Link>
