@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { format } from 'date-fns'

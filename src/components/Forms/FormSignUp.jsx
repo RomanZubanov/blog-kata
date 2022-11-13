@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useDispatch } from 'react-redux'
 import { Checkbox } from 'antd'
 import { Link } from 'react-router-dom'

@@ -1,11 +1,14 @@
+/* eslint-disable */
+
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import Post from '../Post'
 
-import style from './article.module.css'
 import { fetchArticle } from '../PostList/postListSlice'
+
+import style from './article.module.css'
 
 export default function Article() {
   const { slug } = useParams()
@@ -21,7 +24,7 @@ export default function Article() {
       method: 'GET',
     }
     dispatch(fetchArticle(dataForm))
-  }, [])
+  }, [dispatch, slug])
 
   if (slug === post?.slug) {
     return (

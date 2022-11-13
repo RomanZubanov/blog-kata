@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
@@ -49,7 +51,7 @@ export default function FormEditArticle() {
       placeholder="Tag"
       value={tagValues[index]}
       onChange={(event) =>
-        setTagValues((tagValues) => tagValues.map((tag, idx) => (idx === index ? event.target.value : tag)))
+        setTagValues((tags) => tags.map((tag, idx) => (idx === index ? event.target.value : tag)))
       }
     />
   )
