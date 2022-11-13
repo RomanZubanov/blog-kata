@@ -1,3 +1,5 @@
-import { SignUpForm } from './Forms'
+import { FormSignUp } from './FormSignUp'
+import { FormSignIn } from './FormSignIn'
+import { FormEditProfile } from './FormEditProfile'
 
-export default SignUpForm
+export { FormSignUp, FormSignIn, FormEditProfile }

@@ -16,8 +16,17 @@
 }
 
 .right-block {
-  display: flex;
   margin-left: auto;
+}
+
+.right-block-first-floor {
+  display: flex;
+}
+
+.right-block-second-floor {
+  margin-top: 12px;
+  display: flex;
+  justify-content: right;
 }
 
 .title-group {
@@ -73,6 +82,10 @@
   color: rgba(0, 0, 0, 0.75);
 }
 
+.author-date-block > * {
+  text-align: right;
+}
+
 .author-name {
   display: block;
   font-style: normal;
@@ -102,4 +115,35 @@
 
 .user-avatar img {
   width: 100%;
+}
+
+.btn {
+  height: 32px;
+  margin-left: 12px;
+  padding: 0 17px;
+  font-size: 14px;
+  line-height: 28px;
+  background: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-delete {
+  color: #f5222d;
+  border: 1px solid #f5222d;
+}
+
+.btn-delete:hover {
+  background-color: #f5222d;
+  color: #fff;
+}
+
+.btn-edit {
+  color: #52c41a;
+  border: 1px solid #52c41a;
+}
+
+.btn-edit:hover {
+  background-color: #52c41a;
+  color: #fff;
 }

@@ -1,3 +1,5 @@
+import { format } from 'date-fns'
+import classNames from 'classnames'
 import ReactMarkdown from 'react-markdown'
 import { Link } from 'react-router-dom'
 
@@ -19,10 +21,20 @@ export default function Post({
   createdAt,
   description,
   body,
+  showBtn,
 }) {
   const tags = tagList.map((tag) => <span key={key++}>{tag}</span>)
 
   const heartSrc = favorited ? redHeart : heart
+
+  const btn = (
+    <div className={style['right-block-second-floor']}>
+      <button className={classNames(style.btn, style['btn-delete'])}>Delete</button>
+      <Link to={`/articles/${slug}/edit`}>
+        <button className={classNames(style.btn, style['btn-edit'])}>Edit</button>
+      </Link>
+    </div>
+  )
 
   return (
     <article className={style.container}>
@@ -43,19 +55,22 @@ export default function Post({
           </div>
         </div>
         <div className={style['right-block']}>
-          <div>
-            <span className={style['author-name']}>{authorName}</span>
-            <span className={style.date}>{createdAt}</span>
+          <div className={style['right-block-first-floor']}>
+            <div className={style['author-date-block']}>
+              <span className={style['author-name']}>{authorName}</span>
+              <span className={style.date}>{format(new Date(createdAt), 'dd MMMM yyyy')}</span>
+            </div>
+            <div className={style['user-avatar']}>
+              <img
+                src={avatar}
+                alt="user's avatar"
+                onError={(e) => {
+                  e.target.src = avatarPlug
+                }}
+              />
+            </div>
           </div>
-          <div className={style['user-avatar']}>
-            <img
-              src={avatar}
-              alt="user's avatar"
-              onError={(e) => {
-                e.target.src = avatarPlug
-              }}
-            />
-          </div>
+          {showBtn && btn}
         </div>
       </div>
       <ReactMarkdown>{body}</ReactMarkdown>

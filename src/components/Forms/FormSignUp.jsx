@@ -1,11 +1,16 @@
+import { useDispatch } from 'react-redux'
 import { Checkbox } from 'antd'
 import { Link } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
 import classNames from 'classnames'
 
+import { fetchServiceUser } from './userSlice'
+
 import style from './forms.module.css'
 
-function SignUpForm() {
+function FormSignUp() {
+  const dispatch = useDispatch()
+
   const {
     register,
     handleSubmit,
@@ -13,11 +18,18 @@ function SignUpForm() {
     formState: { errors },
     control,
   } = useForm()
-  const onSubmit = (data) => console.log(data)
 
-  console.log()
-
-  console.log(watch('username'))
+  const onSubmit = (data) => {
+    const dataForm = {
+      resource: 'users',
+      user: {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      },
+    }
+    dispatch(fetchServiceUser(dataForm))
+  }
 
   return (
     <div className={style['sign-up-container']}>
@@ -128,10 +140,10 @@ function SignUpForm() {
         </button>
       </form>
       <div className={style.signin}>
-        Already have an account? <Link to="/signin">Sign In.</Link>
+        Already have an account? <Link to="/sign-in">Sign In.</Link>
       </div>
     </div>
   )
 }
 
-export { SignUpForm }
+export { FormSignUp }

@@ -1,28 +1,6 @@
-.sign-up-container {
-  width: 384px;
-  min-height: 600px;
-  margin: 60px auto;
-  padding-bottom: 40px;
-  background: #ffffff;
-  border: 1px solid #d9d9d9;
-  box-shadow: 0 22px 106px rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-}
-
-.sign-in-container {
-  width: 384px;
-  min-height: 385px;
-  margin: 60px auto;
-  padding-bottom: 40px;
-  background: #ffffff;
-  border: 1px solid #d9d9d9;
-  box-shadow: 0 22px 106px rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-}
-
-.edit-profile-container {
-  width: 384px;
-  min-height: 500px;
+.new-article-container {
+  width: 940px;
+  min-height: 700px;
   margin: 60px auto;
   padding-bottom: 40px;
   background: #ffffff;
@@ -32,7 +10,7 @@
 }
 
 .title {
-  width: 310px;
+  width: 874px;
   margin: 50px auto 20px auto;
   font-style: normal;
   font-weight: 600;
@@ -43,18 +21,29 @@
 }
 
 .form {
-  width: 320px;
+  width: 874px;
   margin: auto;
 }
 
 .text-input {
   display: block;
-  width: 320px;
+  width: 100%;
   height: 40px;
   margin: 0 auto 12px auto;
   padding: 0 12px;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
+}
+
+.text-input.tag {
+  display: inline;
+  width: 300px;
+  margin-left: 0;
+}
+
+textarea.text-input {
+  height: 168px;
+  padding-top: 5px;
 }
 
 .error-input {
@@ -87,7 +76,7 @@
 
 .text-label {
   display: block;
-  width: 320px;
+  width: 100%;
   margin: 3px auto;
   font-style: normal;
   font-weight: 400;
@@ -117,7 +106,7 @@
   display: block;
   width: 319px;
   height: 40px;
-  margin: 20px auto 10px auto;
+  margin: 20px auto 10px 0;
   background: #1890ff;
   border-radius: 4px;
 
@@ -132,15 +121,30 @@
   color: #ffffff;
 }
 
-.signin {
-  width: 320px;
-  margin: auto;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
-  text-align: center;
-  color: #8c8c8c;
+.btn-delete-tag {
+  display: inline;
+  width: 110px;
+  height: 40px;
+  margin-left: 17px;
+  font-size: 16px;
+  line-height: 28px;
+  background: none;
+  border-radius: 5px;
+  color: #f5222d;
+  border: 1px solid #f5222d;
+}
+
+.btn-add-tag {
+  display: inline;
+  width: 110px;
+  height: 40px;
+  margin-left: 17px;
+  font-size: 16px;
+  line-height: 28px;
+  background: none;
+  border-radius: 5px;
+  color: #1890ff;
+  border: 1px solid #1890ff;
 }
 
 .error-input:invalid {
