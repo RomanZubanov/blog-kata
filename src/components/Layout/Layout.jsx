@@ -19,7 +19,7 @@ function Layout() {
     if (!isLoggedIn && userLocal) {
       dispatch(getUserLocal(JSON.parse(userLocal)))
     }
-  }, [dispatch, isLoggedIn])
+  }, [dispatch, isLoggedIn, userLocal])
 
   const onLogout = () => {
     dispatch(logOut())

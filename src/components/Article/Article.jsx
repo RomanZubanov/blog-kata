@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom'
 import { Spin } from 'antd'
 
 import { fetchArticle } from '../../features/article/articleSlice'
-
 import Post from '../Post'
 
 import style from './article.module.css'
@@ -29,10 +28,10 @@ export default function Article() {
     dispatch(fetchArticle(dataForm))
   }, [dispatch, slug, token])
 
-  const onFavorite = (slug, method) => {
+  const onFavorite = (slugPath, method) => {
     if (isLoggedIn) {
       const dataForm = {
-        resource: `articles/${slug}/favorite`,
+        resource: `articles/${slugPath}/favorite`,
         method,
         token,
       }

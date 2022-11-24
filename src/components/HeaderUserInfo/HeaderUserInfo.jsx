@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import avatarPlug from './avatar.png'
 import classNames from 'classnames'
 
+import avatarPlug from './avatar.png'
 import style from './HeaderUserInfo.module.css'
 
 function HeaderUserInfo({ user, logout }) {
