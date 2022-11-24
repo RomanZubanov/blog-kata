@@ -27,6 +27,7 @@
         "import"
     ],
     "rules": {
+        "react/jsx-props-no-spreading": "off",
         "no-plusplus": "off",
         "no-param-reassign": "off",
         "indent": ["error", 2],

@@ -32,7 +32,6 @@
 .title-group {
   display: flex;
   align-items: center;
-  height: 28px;
   margin-bottom: 5px;
 }
 
@@ -63,14 +62,7 @@
   border-radius: 2px;
 }
 
-.favoritesCount {
-  display: flex;
-  align-items: center;
-}
 
-.favoritesCount img {
-  margin-right: 5px;
-}
 
 .text {
   height: 50px;
@@ -114,6 +106,9 @@
 }
 
 .user-avatar img {
+  object-fit: cover;
+  object-position: center;
+  height: 100%;
   width: 100%;
 }
 

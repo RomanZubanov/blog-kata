@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { format } from 'date-fns'
@@ -8,9 +6,9 @@ import ReactMarkdown from 'react-markdown'
 import { Link, useNavigate } from 'react-router-dom'
 import { Popconfirm } from 'antd'
 
+import Favorite from '../Favorite/Favorite'
+
 import style from './post.module.css'
-import heart from './heart.svg'
-import redHeart from './redHeart.svg'
 import avatarPlug from './avatar.png'
 
 let key = 0
@@ -27,6 +25,7 @@ export default function Post({
   description,
   body,
   showBtn,
+  onFavorite,
 }) {
   const [deleting, setDeleting] = useState(false)
   const navigate = useNavigate()
@@ -34,17 +33,14 @@ export default function Post({
 
   useEffect(() => {
     async function fetchDelete() {
-      try {
-        const res = await fetch(`https://blog.kata.academy/api/articles/${slug}`, {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        })
-        if (res.ok) {
-          navigate('/')
-        }
-      } catch (err) {
+      const res = await fetch(`https://blog.kata.academy/api/articles/${slug}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      if (res.ok) {
+        navigate('/')
       }
     }
 
@@ -55,8 +51,6 @@ export default function Post({
 
   const tags = tagList.map((tag) => <span key={key++}>{tag}</span>)
 
-  const heartSrc = favorited ? redHeart : heart
-
   const btn = (
     <div className={style['right-block-second-floor']}>
       <Popconfirm
@@ -66,10 +60,14 @@ export default function Post({
         okText="Yes"
         cancelText="No"
       >
-        <button type='button' className={classNames(style.btn, style['btn-delete'])}>Delete</button>
+        <button type="button" className={classNames(style.btn, style['btn-delete'])}>
+          Delete
+        </button>
       </Popconfirm>
       <Link to={`/articles/${slug}/edit`}>
-        <button type='button' className={classNames(style.btn, style['btn-edit'])}>Edit</button>
+        <button type="button" className={classNames(style.btn, style['btn-edit'])}>
+          Edit
+        </button>
       </Link>
     </div>
   )
@@ -82,10 +80,7 @@ export default function Post({
             <h2 className={style.title}>
               <Link to={`/articles/${slug}`}>{title.length > 0 ? title : 'no-title'}</Link>
             </h2>
-            <div className={style.favoritesCount}>
-              <img src={heartSrc} alt="favorite count" />
-              <span>{favoritesCount}</span>
-            </div>
+            <Favorite favorited={favorited} favoritesCount={favoritesCount} onFavorite={onFavorite} slug={slug} />
           </div>
           <div className={style.tag}>{tags}</div>
           <div className={style.text}>

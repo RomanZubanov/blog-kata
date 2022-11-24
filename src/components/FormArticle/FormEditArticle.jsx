@@ -1,21 +1,13 @@
-/* eslint-disable */
-
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import classNames from 'classnames'
 
-import { fetchArticle } from '../PostList/postListSlice'
-
 import style from './formNewArticle.module.css'
 
-export default function FormEditArticle() {
-  const dispatch = useDispatch()
+export default function FormEditArticle({ pageTitle, article, onSubmit }) {
+  const { title, description, body: text, tagList } = article
 
-  const token = useSelector((state) => state.user.user.token)
-  const { title, description, body: text, tagList, slug } = useSelector((state) => state.postList.article.article)
-
-  const [tagValues, setTagValues] = useState(tagList || [''])
+  const [tagValues, setTagValues] = useState(tagList.length === 0 ? [''] : tagList)
 
   const {
     register,
@@ -27,22 +19,8 @@ export default function FormEditArticle() {
       description,
       text,
     },
+    mode: 'onTouched',
   })
-
-  const onSubmit = (data) => {
-    const dataForm = {
-      resource: `articles/${slug}`,
-      method: 'PUT',
-      token,
-      article: {
-        title: data.title,
-        description: data.description,
-        body: data.text,
-        tagList: tagValues,
-      },
-    }
-    dispatch(fetchArticle(dataForm))
-  }
 
   const createTagInput = (index) => (
     <input
@@ -50,9 +28,7 @@ export default function FormEditArticle() {
       type="text"
       placeholder="Tag"
       value={tagValues[index]}
-      onChange={(event) =>
-        setTagValues((tags) => tags.map((tag, idx) => (idx === index ? event.target.value : tag)))
-      }
+      onChange={(event) => setTagValues((tags) => tags.map((tag, idx) => (idx === index ? event.target.value : tag)))}
     />
   )
 
@@ -88,47 +64,47 @@ export default function FormEditArticle() {
   }
   return (
     <div className={style['new-article-container']}>
-      <h3 className={style.title}>Create new article</h3>
-      <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-        <label className={style['text-label']} htmlFor="title">
-          Title
+      <h3 className={style.title}>{pageTitle}</h3>
+      <form className={style.form} onSubmit={handleSubmit((data) => onSubmit(data, tagValues))}>
+        <label htmlFor="title">
+          <span className={style['text-label']}>Title</span>
+          <input
+            className={classNames(style['text-input'], { [style['error-input']]: errors.title })}
+            type="text"
+            id="title"
+            placeholder="Title"
+            {...register('title', {
+              required: 'This field is required',
+            })}
+          />
         </label>
-        <input
-          className={classNames(style['text-input'], { [style['error-input']]: errors.title })}
-          type="text"
-          id="title"
-          placeholder="Title"
-          {...register('title', {
-            required: 'This field is required',
-          })}
-        />
         {errors.title && <span className={style.message}>{errors.title.message || 'Error'}</span>}
 
-        <label className={style['text-label']} htmlFor="description">
-          Short description
+        <label htmlFor="description">
+          <span className={style['text-label']}>Short description</span>
+          <input
+            className={classNames(style['text-input'], { [style['error-input']]: errors.description })}
+            type="text"
+            id="description"
+            placeholder="Short description"
+            {...register('description', {
+              required: 'This field is required',
+            })}
+          />
         </label>
-        <input
-          className={classNames(style['text-input'], { [style['error-input']]: errors.description })}
-          type="text"
-          id="description"
-          placeholder="Short description"
-          {...register('description', {
-            required: 'This field is required',
-          })}
-        />
         {errors.description && <span className={style.message}>{errors.description.message || 'Error'}</span>}
 
-        <label className={style['text-label']} htmlFor="text">
-          Text
+        <label htmlFor="text">
+          <span className={style['text-label']}>Text</span>
+          <textarea
+            className={classNames(style['text-input'], { [style['error-input']]: errors.text })}
+            id="text"
+            placeholder="Text"
+            {...register('text', {
+              required: 'This field is required',
+            })}
+          />
         </label>
-        <textarea
-          className={classNames(style['text-input'], { [style['error-input']]: errors.text })}
-          id="text"
-          placeholder="Text"
-          {...register('text', {
-            required: 'This field is required',
-          })}
-        />
         {errors.text && <span className={style.message}>{errors.text.message || 'Error'}</span>}
 
         <span className={style['text-label']}>Tags</span>

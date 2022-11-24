@@ -1,0 +1,93 @@
+.form {
+    width: 320px;
+    margin: auto;
+}
+
+.text-input {
+    display: block;
+    width: 320px;
+    height: 40px;
+    margin: 0 auto 12px auto;
+    padding: 0 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+}
+
+.error-input {
+    border: 1px solid #f5222d;
+}
+
+.message {
+    position: relative;
+    top: -10px;
+    color: #f5222d;
+}
+
+.text-input::placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #bfbfbf;
+}
+
+.text-input:focus {
+    border: 1px solid #005de5;
+    outline: none;
+}
+
+.error-input.text-input:focus {
+    border: 1px solid #f5222d;
+    outline: none;
+}
+
+.text-label {
+    display: block;
+    width: 320px;
+    margin: 3px auto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #262626;
+}
+
+.agreement {
+    width: 320px;
+    height: 52px;
+    margin: 20px auto;
+    padding-top: 10px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+.checkbox input {
+    width: 16px;
+    height: 16px;
+}
+
+.btn {
+    display: block;
+    width: 319px;
+    height: 40px;
+    margin: 20px auto 10px auto;
+    background: #1890ff;
+    border-radius: 4px;
+
+    outline: none;
+    border: none;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.btn-disable {
+    background-color: grey;
+}

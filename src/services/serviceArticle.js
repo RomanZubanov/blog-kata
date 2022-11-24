@@ -28,7 +28,13 @@ export default async function serviceArticle(dataForm) {
   }
 
   try {
-    const res = await fetch(`https://blog.kata.academy/api/${dataForm.resource}`)
+    const res = await fetch(`https://blog.kata.academy/api/${dataForm.resource}`, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+    })
     if (res.ok) {
       const response = await res.json()
       return response

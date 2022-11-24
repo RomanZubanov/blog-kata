@@ -1,51 +1,60 @@
-/* eslint-disable */
-
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Spin, Pagination } from 'antd'
 
 import Post from '../Post'
-
-import { fetchPostList, pageChange } from './postListSlice'
+import { fetchPostsList, pageChange } from '../../features/posts/postsSlice'
+import { fetchArticle } from '../../features/article/articleSlice'
 
 import style from './postList.module.css'
 
 export default function PostList() {
   const dispatch = useDispatch()
 
-  const status = useSelector((state) => state.postList.status)
-  const posts = useSelector((state) => state.postList.posts)
-  const postsCount = useSelector((state) => state.postList.postsCount)
-  const currentPage = useSelector((state) => state.postList.currentPage)
+  const status = useSelector((state) => state.postsList.status)
+  const posts = useSelector((state) => state.postsList.posts)
+  const postsCount = useSelector((state) => state.postsList.postsCount)
+  const currentPage = useSelector((state) => state.postsList.currentPage)
+  const token = useSelector((state) => state.user.user.token)
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
+  const article = useSelector((state) => state.article.article)
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchPostList())
+    dispatch(fetchPostsList(token))
+  }, [token, article, dispatch])
+
+  const onFavorite = (slug, method) => {
+    if (isLoggedIn) {
+      const dataForm = {
+        resource: `articles/${slug}/favorite`,
+        method,
+        token,
+      }
+      dispatch(fetchArticle(dataForm))
     }
-  }, [status, dispatch])
+  }
 
   let content
   if (status === 'loading') {
     content = <Spin />
   } else if (status === 'succeeded') {
-    content = posts.map((post) => {
-      return (
-        <Post
-          key={post.slug}
-          slug={post.slug}
-          title={post.title}
-          tagList={post.tagList}
-          favorited={post.favorited}
-          favoritesCount={post.favoritesCount}
-          authorName={post.author.username}
-          avatar={post.author.image}
-          createdAt={post.createdAt}
-          updatedAt={post.updatedAt}
-          description={post.description}
-          body={null}
-        />
-      )
-    })
+    content = posts.map((post) => (
+      <Post
+        key={post.slug}
+        slug={post.slug}
+        title={post.title}
+        tagList={post.tagList}
+        favorited={post.favorited}
+        favoritesCount={post.favoritesCount}
+        authorName={post.author.username}
+        avatar={post.author.image}
+        createdAt={post.createdAt}
+        updatedAt={post.updatedAt}
+        description={post.description}
+        body={null}
+        onFavorite={onFavorite}
+      />
+    ))
   }
 
   return (
@@ -60,7 +69,7 @@ export default function PostList() {
           showSizeChanger={false}
           onChange={(page) => {
             dispatch(pageChange(page))
-            dispatch(fetchPostList())
+            dispatch(fetchPostsList())
           }}
         />
       </div>
