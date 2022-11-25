@@ -126,7 +126,7 @@ textarea.text-input {
 }
 
 .btn:hover:not(.btn-disable) {
-  filter: drop-shadow(0px 4px 9px #1890FF);
+  filter: drop-shadow(0px 4px 9px #1890ff);
 }
 
 .btn-delete-tag {
