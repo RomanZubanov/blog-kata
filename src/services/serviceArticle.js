@@ -4,6 +4,8 @@ export default async function serviceArticle(dataForm) {
       article: dataForm.article,
     }) || null
 
+  const { redirect } = dataForm
+
   const token = dataForm.token ? `Token ${dataForm.token}` : null
   const method = dataForm.method || 'POST'
 
@@ -19,6 +21,9 @@ export default async function serviceArticle(dataForm) {
       })
       if (res.ok) {
         const response = await res.json()
+        if (redirect) {
+          redirect(`/articles/${response.article.slug}`)
+        }
         return response
       }
       throw new Error(`${res.status}`)

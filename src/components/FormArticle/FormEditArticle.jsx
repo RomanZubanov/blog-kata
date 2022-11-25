@@ -12,7 +12,7 @@ export default function FormEditArticle({ pageTitle, article, onSubmit }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       title,
@@ -109,7 +109,7 @@ export default function FormEditArticle({ pageTitle, article, onSubmit }) {
 
         <span className={style['text-label']}>Tags</span>
         {createTagControls(tagValues.length)}
-        <button className={style.btn} type="submit">
+        <button className={classNames(style.btn, !isValid && style['btn-disable'])} type="submit" disabled={!isValid}>
           Send
         </button>
       </form>

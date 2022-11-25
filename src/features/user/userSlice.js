@@ -15,6 +15,8 @@ export const fetchServiceUser = createAsyncThunk(
       user: dataForm.user,
     })
 
+    const { callback } = dataForm
+
     let result
 
     try {
@@ -34,6 +36,7 @@ export const fetchServiceUser = createAsyncThunk(
       }
 
       localStorage.setItem('user', JSON.stringify(result))
+      callback()
       return result
     } catch (err) {
       if (!err.response) {
@@ -65,6 +68,9 @@ const userSlice = createSlice({
       state.isLoggedIn = false
       state.user = {}
     },
+    errorReset(state) {
+      state.error = null
+    },
   },
   extraReducers(builder) {
     builder
@@ -88,6 +94,6 @@ const userSlice = createSlice({
   },
 })
 
-export const { getUserLocal, logOut } = userSlice.actions
+export const { getUserLocal, logOut, errorReset } = userSlice.actions
 
 export default userSlice.reducer

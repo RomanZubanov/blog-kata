@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 import UserFormField from '../../components/UserFormField/UserFormField'
 import UserFormAgreement from '../../components/UserFormAgreement/UserFormAgreement'
@@ -8,11 +9,18 @@ import UserFormBtn from '../../components/UserFormBtn/UserFormBtn'
 import UserGeneralError from '../../components/UserGeneralError/UserGeneralError'
 import validationRulesMaker from '../../helpers/validationRulesMaker'
 
-import { fetchServiceUser } from './userSlice'
+import { fetchServiceUser, errorReset } from './userSlice'
 
 function FormHandler({ formSet }) {
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(errorReset())
+  }, [dispatch])
+
   const [generalError, setGeneralError] = useState(null)
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -28,6 +36,9 @@ function FormHandler({ formSet }) {
       method: formSet.method,
       resource: formSet.resource,
       user: data,
+      callback: () => {
+        navigate('/')
+      },
     }
     dispatch(fetchServiceUser(dataForm))
   }
@@ -39,13 +50,17 @@ function FormHandler({ formSet }) {
   useEffect(() => {
     if (typeof serverErrors === 'object' && serverErrors !== null) {
       Object.keys(serverErrors).forEach((key) => {
-        setError(key, { message: serverErrors[key] })
-        if (key.includes(' or ')) {
+        if (key === 'username' || key === 'email' || key === 'password') {
+          setError(key, { message: serverErrors[key] })
+        } else {
           setGeneralError(`${key} ${serverErrors[key]}`)
         }
       })
     }
-  }, [serverErrors, setError, generalError])
+    if (serverErrors === null) {
+      setGeneralError(null)
+    }
+  }, [serverErrors, setError, generalError, dispatch])
 
   const fieldsArr = formSet.fields.map((field) => {
     const { title, id, type } = field

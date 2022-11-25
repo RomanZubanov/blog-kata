@@ -121,6 +121,14 @@ textarea.text-input {
   color: #ffffff;
 }
 
+.btn-disable {
+  background-color: grey;
+}
+
+.btn:hover:not(.btn-disable) {
+  filter: drop-shadow(0px 4px 9px #1890FF);
+}
+
 .btn-delete-tag {
   display: inline;
   width: 110px;

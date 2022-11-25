@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import FormEditArticle from '../../components/FormArticle'
 
@@ -6,6 +7,8 @@ import { fetchArticle } from './articleSlice'
 
 function EditArticle() {
   const dispatch = useDispatch()
+
+  const navigate = useNavigate()
 
   const article = { title: '', description: '', body: '', tagList: [''] }
 
@@ -22,6 +25,7 @@ function EditArticle() {
         body: data.text,
         tagList: tagValues,
       },
+      redirect: (path) => navigate(path),
     }
     dispatch(fetchArticle(dataForm))
   }
