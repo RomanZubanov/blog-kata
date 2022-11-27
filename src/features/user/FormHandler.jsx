@@ -57,6 +57,9 @@ function FormHandler({ formSet }) {
         }
       })
     }
+    if (typeof serverErrors === 'string') {
+      setGeneralError(serverErrors)
+    }
     if (serverErrors === null) {
       setGeneralError(null)
     }

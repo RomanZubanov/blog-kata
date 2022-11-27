@@ -15,6 +15,11 @@ function EditArticle() {
   const token = useSelector((state) => state.user.user.token)
 
   const onSubmit = (data, tagValues = []) => {
+    for (let i = 0; i < tagValues.length; i++) {
+      if (tagValues[i] === '') {
+        tagValues.splice(i, 1)
+      }
+    }
     const dataForm = {
       resource: 'articles',
       method: 'POST',

@@ -12,7 +12,7 @@ export default function FormEditArticle({ pageTitle, article, onSubmit }) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
   } = useForm({
     defaultValues: {
       title,
@@ -21,6 +21,8 @@ export default function FormEditArticle({ pageTitle, article, onSubmit }) {
     },
     mode: 'onTouched',
   })
+
+  console.log('isSubmitting', isSubmitted)
 
   const createTagInput = (index) => (
     <input
@@ -109,7 +111,11 @@ export default function FormEditArticle({ pageTitle, article, onSubmit }) {
 
         <span className={style['text-label']}>Tags</span>
         {createTagControls(tagValues.length)}
-        <button className={classNames(style.btn, !isValid && style['btn-disable'])} type="submit" disabled={!isValid}>
+        <button
+          className={classNames(style.btn, !isValid && style['btn-disable'], isSubmitted && style['btn-disable'])}
+          type="submit"
+          disabled={!isValid || isSubmitted}
+        >
           Send
         </button>
       </form>

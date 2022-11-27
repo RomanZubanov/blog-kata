@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Spin } from 'antd'
+import { Spin, Alert } from 'antd'
 
 import { fetchArticle } from '../../features/article/articleSlice'
 import Post from '../Post'
@@ -18,6 +18,7 @@ export default function Article() {
   const status = useSelector((state) => state.article.status)
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
   const token = useSelector((state) => state.user.user.token)
+  const error = useSelector((state) => state.article.error)
 
   useEffect(() => {
     const dataForm = {
@@ -64,6 +65,8 @@ export default function Article() {
         />
       </div>
     )
+  } else if (status === 'failed') {
+    content = <Alert type="error" message={error} />
   }
 
   return content

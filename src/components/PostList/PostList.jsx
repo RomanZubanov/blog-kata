@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Spin, Pagination } from 'antd'
+import { Spin, Pagination, Alert } from 'antd'
 
 import Post from '../Post'
-import { fetchPostsList, pageChange } from '../../features/posts/postsSlice'
-import { fetchArticle } from '../../features/article/articleSlice'
+import { fetchPostsList, fetchFavorite, pageChange } from '../../features/posts/postsSlice'
 
 import style from './postList.module.css'
 
@@ -17,11 +16,11 @@ export default function PostList() {
   const currentPage = useSelector((state) => state.postsList.currentPage)
   const token = useSelector((state) => state.user.user.token)
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
-  const article = useSelector((state) => state.article.article)
+  const error = useSelector((state) => state.postsList.error)
 
   useEffect(() => {
     dispatch(fetchPostsList(token))
-  }, [token, article, dispatch])
+  }, [token, dispatch])
 
   const onFavorite = (slug, method) => {
     if (isLoggedIn) {
@@ -30,14 +29,14 @@ export default function PostList() {
         method,
         token,
       }
-      dispatch(fetchArticle(dataForm))
+      dispatch(fetchFavorite(dataForm))
     }
   }
 
   let content
   if (status === 'loading') {
     content = <Spin />
-  } else if (status === 'succeeded') {
+  } else if (status === 'succeeded' && error === null) {
     content = posts.map((post) => (
       <Post
         key={post.slug}
@@ -55,6 +54,8 @@ export default function PostList() {
         onFavorite={onFavorite}
       />
     ))
+  } else if (status === 'failed' || error) {
+    content = <Alert type="error" message={error} />
   }
 
   return (
@@ -69,7 +70,7 @@ export default function PostList() {
           showSizeChanger={false}
           onChange={(page) => {
             dispatch(pageChange(page))
-            dispatch(fetchPostsList())
+            dispatch(fetchPostsList(token))
           }}
         />
       </div>
